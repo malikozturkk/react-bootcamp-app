@@ -1,5 +1,15 @@
-export default function Button({ label, children, ...props }) {
+import PropTypes from 'prop-types'
+export default function Button({ label, variant = 'default' }) {
     return(
-        <button {...props}>{label || children}</button>
+        <button>{label}</button>
     )
+}
+
+Button.propTypes = {
+    label: PropTypes.string.isRequired,
+    variant: PropTypes.shape({
+        name: PropTypes.string,
+        surname: PropTypes.string,
+        age: PropTypes.number
+    })
 }
