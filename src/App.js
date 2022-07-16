@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { SiteContext, AuthContext } from "./context"
+import TodoApp from "./TodoApp";
 
 function App() {
 
-  /* 3 tane checkbox koyduk ve tümünü seçme / butonu disabled etme gibi özelliklerle kullandık.
+  return (
+    <SiteContext>
+      <AuthContext>
+        <TodoApp />
+      </AuthContext>
+    </SiteContext>
+  )
+  
+
+/* 3 tane checkbox koyduk ve tümünü seçme / butonu disabled etme gibi özelliklerle kullandık.
   const [rules, setRules] = useState([
     { id: 1, label: 'kural 1 kabul ediyorum', checked: false },
     { id: 2, label: 'kural 2 kabul ediyorum', checked: false },
@@ -45,8 +56,6 @@ function App() {
     </div>
   );
 */
-
-  
 /* Sadece resim yükleyip bunu sayfada gösterdik.
   const [name, setName] = useState()
   const [image, setImage] = useState()
@@ -77,12 +86,6 @@ function App() {
     </div>
   );
 */
-
-return (
-  <div className="App">
-    selam
-  </div>
-);
 }
 
 export default App;

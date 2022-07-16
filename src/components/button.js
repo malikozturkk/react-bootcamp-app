@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types'
-export default function Button({ label, variant = 'default' }) {
-    return(
-        <button>{label}</button>
-    )
+import { createElement } from 'react'
+export default function Button({ label, as = 'button' ,variant = 'default', ...props}) {
+    return createElement(as, {
+        className: variant,
+        ...props
+    }, label)
 }
 
 Button.propTypes = {
     label: PropTypes.string.isRequired,
-    variant: PropTypes.shape({
-        name: PropTypes.string,
-        surname: PropTypes.string,
-        age: PropTypes.number
-    })
+    as: PropTypes.string.isRequired,
+    variant: PropTypes.string.isRequired
 }
