@@ -1,11 +1,16 @@
 import { memo } from "react"
+import { useAuth } from "../context"
 
-function AddTodo({ submitHandle, changeHandle, todo }) {
-    console.log('ADD Todo rendered')
+function AddTodo({ submitHandle, updateTodo, todo, completed, updateCompleted }) {
+    const { user } = useAuth()
     return (
-        <form onSubmit={submitHandle}>
-            <input type='text' value={todo} onChange={changeHandle} />
-            <button disabled={!todo} type="submit">Ekle</button>
+        <form className="p-4 flex gap-x-4 border-b items-center bg-white dark:bg-gray-700 dark:border-gray-800" onSubmit={submitHandle}>
+            <input className="flex-1 h-10 rounded-md border border-gray-300 px-4 text-sm dark:bg-gray-500 dark:border-white/20 dark:placeholder:text-white" placeholder="Todo Ekle" type='text' value={todo} onChange={updateTodo} />
+            <label className="flex gap-x-2 items-center text-sm">
+                <input type="checkbox" checked={completed} onChange={updateCompleted} />
+                Tamamlanmış
+            </label>
+            <button className="h-10 rounded-3xl bg-orange-600 text-white text-sm px-8 disabled:opacity-20 disabled:cursor-not-allowed" disabled={!todo || !user} type="submit">Ekle</button>
         </form>
     )
 }

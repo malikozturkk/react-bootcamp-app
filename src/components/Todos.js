@@ -2,15 +2,22 @@ import TodoItem from "./TodoItem"
 import { memo } from "react"
 import { useSite } from "../context/SiteContext"
 
-function Todos({ todos, deleteTodo }) {
+function Todos({ todos, deleteTodo, toggleTodo, updateTodoItem }) {
     console.log('Todos rendered')
     const {theme} = useSite()
     return (
         <>
-            <h3>Tema = {theme}</h3>
-            <ul>
-                {todos.map ((todo, index) => <TodoItem key={index} todo={todo} index={index} deleteTodo={deleteTodo} /> )}
-            </ul>   
+            {todos.length > 0  && (
+                <ul className="bg-white dark:bg-transparent">
+                    {todos.map ((todo, index) => <TodoItem key={index} todo={todo} index={index} deleteTodo={deleteTodo} toggleTodo={toggleTodo} updateTodoItem={updateTodoItem} /> )}
+                </ul>   
+            ) || (
+                <div className="p-5">
+                    <div className="bg-blue-100 p-5 rounded text-sm text-blue-800">
+                        Henüz hiç todo eklemediniz!
+                    </div>
+                </div>
+            )}
         </>
     )
 }

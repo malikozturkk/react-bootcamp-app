@@ -1,34 +1,33 @@
 import { memo, useState } from "react";
 import { useAuth, useSite } from "../context";
+import SearchTodo from "./SearchTodo";
+import Login from "./Login";
 
-const Header = () => {
+const Header = ({ search, searchHandle }) => {
     console.log('header rendered')
     const { theme, setTheme, language, setLanguage } = useSite()
     const { user, setUser } = useAuth()
-
-    const loginHandle = () => {
-        setUser({
-            username: 'malikozturkk',
-            email: 'malikozturk975@gmail.com'
-        })
-    }
 
     const logoutHandle = () => {
         setUser(false)
     }
 
     return (
-        <header>
+        <header className="h-[60px] bg-gray-200 dark:bg-black flex justify-between items-center px-4">
+            <h1 className="text-xl font-medium">TodoApp</h1>
+            <SearchTodo search={search} searchHandle={searchHandle} />
             Mevcut Tema = {theme}
-            <button onClick={() => setTheme(theme => theme === 'light' ? 'dark' : 'light')}>Temayı Değiştir</button> <br />
-            Site Dili = {language}
-            <button onClick={() => setLanguage(lang => lang === 'tr' ? 'en' : 'tr')}>Dili Değiştir</button> <br />
-            <hr />
-            {!user && <button onClick={loginHandle}>Giriş Yap</button> || user && <button onClick={logoutHandle}>Çıkış Yap</button>}<br />
-            {user && (
-                <pre>{JSON.stringify(user, null, 2)}</pre>
+            <div className="flex gap-x-4">
+            <button className="h-8 rounded-2xl px-3 text-sm text-white bg-black dark:bg-white dark:text-black" onClick={() => setTheme(theme => theme === 'light' ? 'dark' : 'light')}>
+                {theme === 'light' ? 'Koyu Tema' : 'Açık Tema'}
+            </button>
+            {!user && <Login /> || (
+                <div className="flex gap-x-2 items-center">
+                    {user.username},
+                    <button  className="text-sm underline" onClick={logoutHandle}>Çıkış Yap</button>
+                </div>
             )}
-            
+            </div>
         </header>
     )
 }
