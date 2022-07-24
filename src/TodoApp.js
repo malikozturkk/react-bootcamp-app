@@ -1,10 +1,12 @@
-import { useReducer, useCallback, useMemo } from "react";
+import { useReducer, useCallback, useMemo, useEffect } from "react";
 import todoReducer from './reducers/todo-reducer'
 import AddTodo from "./components/AddTodo";
 import Todos from "./components/Todos";
 import Header from "./components/Header";
 import { useAuth, useSite } from "./context"
 import FilterTodo from "./components/FilterTodo";
+import { get, post } from "./services"
+import { getAllPosts, setNewPost } from "./services/posts"
 
 function TodoApp() {
     const [state, dispatch] = useReducer(todoReducer, {
@@ -18,7 +20,16 @@ function TodoApp() {
 
       const { theme } = useSite()
       const { user } = useAuth()
-    
+
+      useEffect(() => {
+        //getAllPosts().then(res => console.log(res))
+        setNewPost({
+          title: "test",
+          userId: 1,
+          body: "test body"
+        })
+      })
+  
       const submitHandle = useCallback(e => {
         e.preventDefault()
         dispatch({
