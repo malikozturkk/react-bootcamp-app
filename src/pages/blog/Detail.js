@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { getPostDetail } from "../../services/posts"
 import { useState, useEffect } from "react"
+import { Helmet } from "react-helmet"
 
 export default function Detail() {
 
@@ -18,6 +19,10 @@ export default function Detail() {
 
     return (
         <>
+            <Helmet>
+                <title>{post.title} - Blog</title>
+                <meta name="description" content={post.body.substr(0, 220)} />
+            </Helmet>
             <h1 className="text-xl font-medium mb-2">{post.title}</h1>
             <p>{post.body}</p>
         </>

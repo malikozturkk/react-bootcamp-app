@@ -2,47 +2,37 @@ import { useState, useEffect } from "react";
 import { SiteContext, AuthContext } from "./context"
 import TodoApp from "./TodoApp";
 import classNames from "classnames";
-import { Routes, Route, Link, NavLink } from "react-router-dom"
-import Home from "./pages/Home"
-import Contact from "./pages/Contact"
-import BlogLayout from "./pages/blog"
-import BlogDetail from "./pages/blog/Detail"
-import Blog from "./pages/blog/Blog"
-import Page404 from "./pages/Page404";
-import Blog404 from "./pages/blog/Blog404";
-
+import { Routes, Route, Link, NavLink, useRoutes } from "react-router-dom"
+import routes from "./routes";
+import { getPath } from "./utils";
+import CustomLink from "./components/Customlink";
 function App() {
-
   return (
     <SiteContext>
       <AuthContext>
         <nav className="h-10 bg-black flex items-center gap-x-4 justify-center">
-          <NavLink to="/" className={({ isActive }) => classNames({
+          <CustomLink to="index" className={({ isActive }) => classNames({
             "text-sm text-white border-b-2": true,
             "border-transparent": !isActive,
             "border-red-500": isActive,
-          })}>Anasayfa</NavLink>
-          <NavLink to="/contact" className={({ isActive }) => classNames({
+          })}>Anasayfa</CustomLink>
+          <CustomLink to="contact" className={({ isActive }) => classNames({
             "text-sm text-white border-b-2": true,
             "border-transparent": !isActive,
             "border-red-500": isActive,
-          })}>İletişim</NavLink>
-          <NavLink to="/blog" className={({ isActive }) => classNames({
+          })}>İletişim</CustomLink>
+          <CustomLink to="blog" className={({ isActive }) => classNames({
             "text-sm text-white border-b-2": true,
             "border-transparent": !isActive,
             "border-red-500": isActive,
-          })}>Blog</NavLink>
+          })}>Blog</CustomLink>
+          <CustomLink to="todo" className={({ isActive }) => classNames({
+            "text-sm text-white border-b-2": true,
+            "border-transparent": !isActive,
+            "border-red-500": isActive,
+          })}>Todo App</CustomLink>
         </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<BlogLayout />}>
-            <Route index element={<Blog />} />
-            <Route path="konu/:postId" element={<BlogDetail />} />
-            <Route path="*" element={<Blog404 />} />
-          </Route>
-          <Route path="*" element={<Page404 />} />
-        </Routes>
+        {useRoutes(routes)}
       </AuthContext>
     </SiteContext>
   )
